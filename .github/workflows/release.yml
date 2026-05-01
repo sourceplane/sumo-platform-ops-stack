@@ -21,6 +21,9 @@ jobs:
       - name: Initialize orun workspace
         uses: sourceplane/kiox-action@v2.1.2
 
+      - name: Make helper scripts executable
+        run: chmod +x scripts/*.sh
+
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
@@ -36,6 +39,9 @@ jobs:
           test -n "${stack_version}"
           test "${stack_version}" = "${tag_version}"
           echo "STACK_VERSION=${stack_version}" >> "${GITHUB_ENV}"
+
+      - name: Verify catalog
+        run: ./scripts/verify.sh
 
       - name: Publish OCI package
         run: |
@@ -55,3 +61,9 @@ jobs:
           gh release create "${GITHUB_REF_NAME}" \
             --title "${GITHUB_REF_NAME}" \
             --generate-notes
+
+      - name: Upload registry index
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${GITHUB_REF_NAME}" registry/index.json --clobber
+        

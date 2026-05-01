@@ -1,0 +1,24 @@
+apiVersion: sourceplane.io/v1
+kind: Intent
+metadata:
+  name: full-enterprise
+
+compositions:
+  sources:
+    - name: sumo-platform-ops
+      kind: oci
+      ref: oci://ghcr.io/sourceplane/sumo-platform-ops-stack:0.10.0
+
+discovery:
+  roots:
+    - apps
+    - packages
+    - infra
+    - charts
+    - deploy
+    - website
+
+environments:
+  development: {}
+  staging: {}
+  production: {}
