@@ -1,5 +1,5 @@
 # Tests for turbo-package
 
-Put composition-specific smoke tests or validation fixtures for `turbo-package` here.
+These files provide contract or smoke fixtures that CI can inspect for `turbo-package` without requiring a full consumer repository checkout.
 
-The scorecard only counts test assets beyond this placeholder README.
+- `tests/smoke`

@@ -1,6 +1,6 @@
 # Getting started
 
-`sumo-platform-ops-stack` is a versioned Orun stack catalog. Consumer repositories pin it as an OCI composition source, then declare local `component.yaml` manifests that use the exported composition types.
+`stack-tectonic` is a versioned Orun stack catalog. Consumer repositories pin it as an OCI composition source, then declare local `component.yaml` manifests that use the exported composition types.
 
 ## 1. Pin the runtime
 
@@ -13,9 +13,9 @@ Declare this stack in `intent.yaml`:
 ```yaml
 compositions:
   sources:
-    - name: sumo-platform-ops
+    - name: stack-tectonic
       kind: oci
-      ref: oci://ghcr.io/sourceplane/sumo-platform-ops-stack:0.10.0
+      ref: oci://ghcr.io/sourceplane/stack-tectonic:0.11.0
 ```
 
 ## 3. Discover local components

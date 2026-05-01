@@ -1,5 +1,5 @@
 # Examples for cloudflare-worker
 
-Put consumer-facing example assets for `cloudflare-worker` here.
+These fixtures are excerpted or adapted from `example-platform-repo` to show how `cloudflare-worker` looks inside a consumer repository.
 
-The scorecard only counts example assets beyond this placeholder README.
+- `examples/identity-worker`

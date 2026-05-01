@@ -77,8 +77,8 @@ spec:
           run: torkflow view --workflow {{.workflowFile}}
           onFailure: stop
       inputs:
-        chartPath: services/hello-app
-        valuesFile: services/hello-app/values.yaml
-        kustomizeDir: website/smoke/kustomize
-        terraformDir: website/smoke/terraform
-        workflowFile: website/smoke/provider-smoke.yaml
+        chartPath: charts/hello-chart/chart
+        valuesFile: deploy/hello-deploy/values.yaml
+        kustomizeDir: smoke/kustomize
+        terraformDir: smoke/terraform
+        workflowFile: smoke/provider-smoke.yaml

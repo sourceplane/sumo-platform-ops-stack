@@ -1,5 +1,5 @@
 # Examples for turbo-package
 
-Put consumer-facing example assets for `turbo-package` here.
+These fixtures are excerpted or adapted from `example-platform-repo` to show how `turbo-package` looks inside a consumer repository.
 
-The scorecard only counts example assets beyond this placeholder README.
+- `examples/platform-sdk`

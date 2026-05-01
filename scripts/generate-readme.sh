@@ -32,15 +32,37 @@ def write_or_check(path: Path, content: str) -> None:
         path.write_text(normalized)
 
 
+def top_level_assets(directory: Path) -> list[str]:
+    if not directory.exists():
+        return []
+    items: set[str] = set()
+    for path in directory.rglob("*"):
+        if not path.is_file() or path.name.lower() == "readme.md":
+            continue
+        rel = path.relative_to(directory)
+        items.add(rel.parts[0])
+    return sorted(items)
+
+
+def render_asset_list(directory_name: str, items: list[str], empty_message: str) -> str:
+    if not items:
+        return f"- {empty_message}"
+    return "\n".join(f"- `{directory_name}/{item}`" for item in items)
+
+
 for contract in sorted((root / "compositions").glob("*/compositions.yaml")):
     text = contract.read_text()
     name = extract(r"^  name:\s*(.+)$", text)
     description = extract(r"^  description:\s*(.+)$", text)
     comp_dir = contract.parent
+    example_items = top_level_assets(comp_dir / "examples")
+    test_items = top_level_assets(comp_dir / "tests")
+    example_list = render_asset_list("examples", example_items, "Add a sample fixture under examples/.")
+    test_list = render_asset_list("tests", test_items, "Add a smoke or contract fixture under tests/.")
 
     readme = f"""# {name}
 
-`{name}` is an exported Orun composition in the Sumo Platform Ops catalog.
+`{name}` is an exported Orun composition in the Stack Tectonic catalog.
 
 ## Purpose
 
@@ -52,29 +74,33 @@ for contract in sorted((root / "compositions").glob("*/compositions.yaml")):
 - **Path:** `{comp_dir.relative_to(root)}`
 - **Definition:** `compositions.yaml`
 
-## Catalog status
+## Example fixtures
 
-This folder is intentionally self-contained so examples, smoke coverage, and future registry metadata can live beside the composition contract.
+These sample assets are excerpted or adapted from `example-platform-repo` so the contract is documented with realistic consumer-repo shapes.
 
-## Next steps
+{example_list}
 
-- add runnable example assets under `examples/`
-- add composition-specific smoke coverage under `tests/`
-- keep the contract description in `compositions.yaml` aligned with the repo scorecard
+## Test fixtures
+
+{test_list}
+
+## Verification
+
+`./scripts/verify-composition.sh {name}` checks that this composition keeps its contract, fixture, and generated-doc scaffolding intact.
 """
 
     examples_readme = f"""# Examples for {name}
 
-Put consumer-facing example assets for `{name}` here.
+These fixtures are excerpted or adapted from `example-platform-repo` to show how `{name}` looks inside a consumer repository.
 
-The scorecard only counts example assets beyond this placeholder README.
+{example_list}
 """
 
     tests_readme = f"""# Tests for {name}
 
-Put composition-specific smoke tests or validation fixtures for `{name}` here.
+These files provide contract or smoke fixtures that CI can inspect for `{name}` without requiring a full consumer repository checkout.
 
-The scorecard only counts test assets beyond this placeholder README.
+{test_list}
 """
 
     write_or_check(comp_dir / "README.md", readme)

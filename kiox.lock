@@ -1,7 +1,7 @@
 apiVersion: kiox.io/v1
 kind: WorkspaceLock
 metadata:
-    name: sumo-platform-ops-stack
+    name: stack-tectonic
 providers:
     - alias: orun
       provider: sourceplane/orun

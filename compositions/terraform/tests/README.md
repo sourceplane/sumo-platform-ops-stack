@@ -1,5 +1,5 @@
 # Tests for terraform
 
-Put composition-specific smoke tests or validation fixtures for `terraform` here.
+These files provide contract or smoke fixtures that CI can inspect for `terraform` without requiring a full consumer repository checkout.
 
-The scorecard only counts test assets beyond this placeholder README.
+- `tests/smoke`

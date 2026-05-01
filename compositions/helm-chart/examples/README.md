@@ -1,5 +1,5 @@
 # Examples for helm-chart
 
-Put consumer-facing example assets for `helm-chart` here.
+These fixtures are excerpted or adapted from `example-platform-repo` to show how `helm-chart` looks inside a consumer repository.
 
-The scorecard only counts example assets beyond this placeholder README.
+- `examples/identity-portal-chart`

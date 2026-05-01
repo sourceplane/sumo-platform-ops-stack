@@ -1,5 +1,5 @@
 # Examples for cloudflare-pages
 
-Put consumer-facing example assets for `cloudflare-pages` here.
+These fixtures are excerpted or adapted from `example-platform-repo` to show how `cloudflare-pages` looks inside a consumer repository.
 
-The scorecard only counts example assets beyond this placeholder README.
+- `examples/docs-site`

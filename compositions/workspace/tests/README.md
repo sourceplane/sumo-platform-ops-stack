@@ -1,5 +1,5 @@
 # Tests for workspace
 
-Put composition-specific smoke tests or validation fixtures for `workspace` here.
+These files provide contract or smoke fixtures that CI can inspect for `workspace` without requiring a full consumer repository checkout.
 
-The scorecard only counts test assets beyond this placeholder README.
+- `tests/smoke`

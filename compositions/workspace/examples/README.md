@@ -1,5 +1,5 @@
 # Examples for workspace
 
-Put consumer-facing example assets for `workspace` here.
+These fixtures are excerpted or adapted from `example-platform-repo` to show how `workspace` looks inside a consumer repository.
 
-The scorecard only counts example assets beyond this placeholder README.
+- `examples/provider-smoke`
