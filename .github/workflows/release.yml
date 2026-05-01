@@ -45,7 +45,7 @@ jobs:
 
       - name: Publish OCI package
         run: |
-          kiox -- orun publish ghcr.io/sourceplane/sumo-platform-ops-stack:${STACK_VERSION} \
+          kiox -- orun publish ghcr.io/sourceplane/stack-tectonic:${STACK_VERSION} \
             --root . \
             --version "${STACK_VERSION}"
 

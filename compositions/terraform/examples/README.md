@@ -1,5 +1,5 @@
 # Examples for terraform
 
-Put consumer-facing example assets for `terraform` here.
+These fixtures are excerpted or adapted from `example-platform-repo` to show how `terraform` looks inside a consumer repository.
 
-The scorecard only counts example assets beyond this placeholder README.
+- `examples/network-foundation`

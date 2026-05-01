@@ -45,9 +45,9 @@ metadata:
 
 compositions:
   sources:
-    - name: sumo-platform-ops
+    - name: stack-tectonic
       kind: oci
-      ref: oci://ghcr.io/sourceplane/sumo-platform-ops-stack:0.10.0
+      ref: oci://ghcr.io/sourceplane/stack-tectonic:0.11.0
 
 discovery:
   roots:
@@ -63,7 +63,7 @@ environments:
 The important line is the OCI source:
 
 ```yaml
-ref: oci://ghcr.io/sourceplane/sumo-platform-ops-stack:0.10.0
+ref: oci://ghcr.io/sourceplane/stack-tectonic:0.11.0
 ```
 
 Pin a released version instead of `latest` so plans stay reproducible.

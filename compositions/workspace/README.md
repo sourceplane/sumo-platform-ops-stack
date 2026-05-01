@@ -1,6 +1,6 @@
 # workspace
 
-`workspace` is an exported Orun composition in the Sumo Platform Ops catalog.
+`workspace` is an exported Orun composition in the Stack Tectonic catalog.
 
 ## Purpose
 
@@ -12,12 +12,16 @@ Workspace-backed provider smoke jobs
 - **Path:** `compositions/workspace`
 - **Definition:** `compositions.yaml`
 
-## Catalog status
+## Example fixtures
 
-This folder is intentionally self-contained so examples, smoke coverage, and future registry metadata can live beside the composition contract.
+These sample assets are excerpted or adapted from `example-platform-repo` so the contract is documented with realistic consumer-repo shapes.
 
-## Next steps
+- `examples/provider-smoke`
 
-- add runnable example assets under `examples/`
-- add composition-specific smoke coverage under `tests/`
-- keep the contract description in `compositions.yaml` aligned with the repo scorecard
+## Test fixtures
+
+- `tests/smoke`
+
+## Verification
+
+`./scripts/verify-composition.sh workspace` checks that this composition keeps its contract, fixture, and generated-doc scaffolding intact.

@@ -4,10 +4,16 @@ The repository uses a split verification model so the stack can scale as a catal
 
 ## Verify workflow
 
-`verify.yml` runs `./scripts/verify.sh`, which:
+`verify.yml` splits verification into two lanes:
+
+- a composition matrix that runs `./scripts/verify-composition.sh <name>` for every exported type
+- a full catalog lane that runs `./scripts/verify.sh`
+
+The full catalog lane:
 
 - checks generated composition docs are up to date
 - checks the generated registry index is current
+- checks every composition has example and test fixtures beyond placeholder READMEs
 - runs the same OCI dry-run publish path used by release automation
 
 ## Docs workflow
@@ -20,7 +26,7 @@ The repository uses a split verification model so the stack can scale as a catal
 
 ## Release workflow
 
-`release.yml` validates the tag against `stack.yaml`, regenerates the scorecard, publishes the OCI package, and attaches the registry index to the GitHub release.
+`release.yml` validates the tag against `stack.yaml`, reruns the full catalog verification, publishes the OCI package, and attaches the registry index to the GitHub release.
 
 ## Score model
 

@@ -11,13 +11,48 @@ permissions:
   packages: read
 
 jobs:
+  composition-fixtures:
+    name: Composition fixture (${{ matrix.composition }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        composition:
+          - cloudflare-pages
+          - cloudflare-pages-turbo
+          - cloudflare-pages-terraform
+          - cloudflare-pages-turbo-terraform
+          - cloudflare-worker
+          - cloudflare-worker-turbo
+          - terraform
+          - helm-chart
+          - helm-values
+          - turbo-package
+          - workspace
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Make helper scripts executable
+        run: chmod +x scripts/*.sh
+
+      - name: Verify composition fixtures
+        run: ./scripts/verify-composition.sh "${{ matrix.composition }}"
+
   verify-stack:
     name: Verify stack catalog
+    needs: composition-fixtures
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Initialize orun workspace
         uses: sourceplane/kiox-action@v2.1.2

@@ -1,5 +1,5 @@
 # Examples for cloudflare-pages-terraform
 
-Put consumer-facing example assets for `cloudflare-pages-terraform` here.
+These fixtures are excerpted or adapted from `example-platform-repo` to show how `cloudflare-pages-terraform` looks inside a consumer repository.
 
-The scorecard only counts example assets beyond this placeholder README.
+- `examples/docs-site-git`

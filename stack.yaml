@@ -1,9 +1,9 @@
 apiVersion: orun.io/v1
 kind: Stack
 metadata:
-  name: sumo-platform-ops-stack
-  title: Sumo Platform Ops Stack
-  version: 0.10.0
+  name: stack-tectonic
+  title: Stack Tectonic
+  version: 0.11.0
   description: Versioned OCI-hosted catalog of platform compositions and blueprints for Sourceplane repositories.
   owner: sourceplane
   tags:
@@ -16,5 +16,5 @@ metadata:
 registry:
   host: ghcr.io
   namespace: sourceplane
-  repository: sumo-platform-ops-stack
+  repository: stack-tectonic
   visibility: public

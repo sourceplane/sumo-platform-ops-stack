@@ -1,10 +1,10 @@
-# Sumo Platform Ops Stack
+# Stack Tectonic
 
 Versioned OCI catalog for reusable Orun compositions, blueprints, examples, and release metadata.
 
 This repository is the source of truth for the stack published to:
 
-`oci://ghcr.io/sourceplane/sumo-platform-ops-stack:<version>`
+`oci://ghcr.io/sourceplane/stack-tectonic:<version>`
 
 ## Use the OCI package in `intent.yaml`
 
@@ -13,9 +13,9 @@ Pin the catalog as a composition source in the consumer repository:
 ```yaml
 compositions:
   sources:
-    - name: sumo-platform-ops
+    - name: stack-tectonic
       kind: oci
-      ref: oci://ghcr.io/sourceplane/sumo-platform-ops-stack:0.10.0
+      ref: oci://ghcr.io/sourceplane/stack-tectonic:0.11.0
 ```
 
 Keep the `orun` runtime pinned separately in `kiox.yaml`, then plan or run against that intent. The full consumer workflow is in [docs/using-this-stack-from-oci.md](docs/using-this-stack-from-oci.md).
@@ -23,7 +23,7 @@ Keep the `orun` runtime pinned separately in `kiox.yaml`, then plan or run again
 ## Catalog layout
 
 ```text
-sumo-platform-ops-stack/
+stack-tectonic/
 ├── stack.yaml
 ├── README.md
 ├── docs/
@@ -62,10 +62,11 @@ Every composition now lives under `compositions/<name>/` so docs, examples, test
 
 ## Trust signals
 
-- `scripts/verify.sh` validates docs metadata and runs the stack OCI dry-run publish path.
+- `scripts/verify-composition.sh` enforces that every exported composition keeps real examples and smoke fixtures beside its contract.
+- `scripts/verify.sh` validates generated docs and scores, checks every composition fixture, and runs the stack OCI dry-run publish path.
 - `scripts/score.sh` generates `registry/index.json` with maturity scores and grades.
-- GitHub workflows split verification, docs checks, scorecard generation, and releases into separate pipelines.
-- Current scores are intentionally conservative until each composition has runnable examples and deeper smoke coverage.
+- Composition fixtures are excerpted or adapted from `example-platform-repo` so the catalog documents real repo shapes instead of synthetic placeholders.
+- GitHub workflows split per-composition fixture checks, full catalog verification, docs checks, scorecard generation, and releases into separate pipelines.
 
 ## Docs
 
@@ -81,6 +82,6 @@ Every composition now lives under `compositions/<name>/` so docs, examples, test
 1. Update `stack.yaml`.
 2. Run `./scripts/verify.sh`.
 3. Merge to `main`.
-4. Push a matching tag like `v0.10.0`.
+4. Push a matching tag like `v0.11.0`.
 
 The release workflow publishes the OCI package, creates the GitHub release, and uploads the generated registry index.
