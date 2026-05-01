@@ -3,14 +3,16 @@ kind: Stack
 metadata:
   name: sumo-platform-ops-stack
   title: Sumo Platform Ops Stack
-  version: 0.9.3
-  description: Versioned OCI-hosted platform compositions for Sourceplane repositories.
+  version: 0.10.0
+  description: Versioned OCI-hosted catalog of platform compositions and blueprints for Sourceplane repositories.
   owner: sourceplane
   tags:
     - terraform
     - helm
     - cloudflare
     - platform
+    - catalog
+    - blueprints
 registry:
   host: ghcr.io
   namespace: sourceplane

@@ -1,38 +1,86 @@
-# sumo-platform-ops-stack
+# Sumo Platform Ops Stack
 
-Versioned OCI-hosted platform compositions for Sourceplane repos.
+Versioned OCI catalog for reusable Orun compositions, blueprints, examples, and release metadata.
 
-This repository is the source of truth for the packaged Orun stack consumed by platform repositories such as `example-platform-repo`. It publishes the composition package to GHCR and keeps execution contracts versioned independently from the application and infrastructure repos that use them.
-
-## Package layout
-
-The repository root is the composition package root:
-
-- `stack.yaml` defines the exported stack metadata and OCI registry target
-- `<type>/compositions.yaml` defines one `Composition` contract per component type
-- `.github/workflows/ci.yml` validates the package on pull requests and pushes to `main`
-- `.github/workflows/release.yml` publishes tagged releases to `ghcr.io/sourceplane/sumo-platform-ops-stack`
-
-## Exported composition types
-
-- `terraform`
-- `helm-values`
-- `helm-chart`
-- `cloudflare-worker`
-- `cloudflare-worker-turbo`
-- `cloudflare-pages`
-- `cloudflare-pages-turbo`
-- `cloudflare-pages-terraform`
-- `cloudflare-pages-turbo-terraform`
-- `turbo-package`
-- `workspace`
-
-## Releasing
-
-1. Update `stack.yaml` with the next package version.
-2. Merge the change to `main`.
-3. Push a matching git tag in the form `vX.Y.Z`.
-
-The release workflow validates that the git tag matches `stack.yaml`, then publishes the package to:
+This repository is the source of truth for the stack published to:
 
 `oci://ghcr.io/sourceplane/sumo-platform-ops-stack:<version>`
+
+## Use the OCI package in `intent.yaml`
+
+Pin the catalog as a composition source in the consumer repository:
+
+```yaml
+compositions:
+  sources:
+    - name: sumo-platform-ops
+      kind: oci
+      ref: oci://ghcr.io/sourceplane/sumo-platform-ops-stack:0.10.0
+```
+
+Keep the `orun` runtime pinned separately in `kiox.yaml`, then plan or run against that intent. The full consumer workflow is in [docs/using-this-stack-from-oci.md](docs/using-this-stack-from-oci.md).
+
+## Catalog layout
+
+```text
+sumo-platform-ops-stack/
+├── stack.yaml
+├── README.md
+├── docs/
+├── blueprints/
+├── compositions/
+├── examples/
+├── scripts/
+├── registry/
+└── .github/workflows/
+```
+
+## Compositions
+
+| Composition | Category | Purpose |
+| --- | --- | --- |
+| `cloudflare-pages` | hosting | Direct-upload Cloudflare Pages delivery |
+| `cloudflare-pages-turbo` | hosting | Pages delivery from pnpm and Turbo monorepos |
+| `cloudflare-pages-terraform` | platform | Terraform-managed Cloudflare Pages projects |
+| `cloudflare-pages-turbo-terraform` | platform | Monorepo Pages delivery plus Terraform reconciliation |
+| `cloudflare-worker` | edge | Cloudflare Worker validation and deploy jobs |
+| `cloudflare-worker-turbo` | edge | Worker delivery from pnpm and Turbo monorepos |
+| `terraform` | infrastructure | Terraform fmt, init, and validate jobs |
+| `helm-chart` | kubernetes | Helm chart verification |
+| `helm-values` | kubernetes | Helm values validation |
+| `turbo-package` | developer-experience | Shared package verification in Turbo workspaces |
+| `workspace` | developer-experience | Workspace-backed provider smoke jobs |
+
+Every composition now lives under `compositions/<name>/` so docs, examples, tests, and future registry metadata can grow beside the contract instead of around a flat root.
+
+## Blueprints
+
+| Blueprint | Uses | Focus |
+| --- | --- | --- |
+| `nextjs-cloudflare` | `workspace`, `turbo-package`, `cloudflare-pages-turbo`, `cloudflare-pages-terraform` | Edge-hosted Next.js monorepos with Terraform-managed Pages |
+| `edge-worker-platform` | `workspace`, `terraform`, `cloudflare-worker`, `helm-values` | Worker-first delivery with infra and environment overlays |
+
+## Trust signals
+
+- `scripts/verify.sh` validates docs metadata and runs the stack OCI dry-run publish path.
+- `scripts/score.sh` generates `registry/index.json` with maturity scores and grades.
+- GitHub workflows split verification, docs checks, scorecard generation, and releases into separate pipelines.
+- Current scores are intentionally conservative until each composition has runnable examples and deeper smoke coverage.
+
+## Docs
+
+- [Getting started](docs/getting-started.md)
+- [Core concepts](docs/concepts.md)
+- [Authoring guide](docs/authoring.md)
+- [Verification model](docs/verification.md)
+- [Roadmap](docs/roadmap.md)
+- [Using this stack from OCI](docs/using-this-stack-from-oci.md)
+
+## Release flow
+
+1. Update `stack.yaml`.
+2. Run `./scripts/verify.sh`.
+3. Merge to `main`.
+4. Push a matching tag like `v0.10.0`.
+
+The release workflow publishes the OCI package, creates the GitHub release, and uploads the generated registry index.

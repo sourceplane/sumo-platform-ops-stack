@@ -1,0 +1,29 @@
+name: Verify
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  verify-stack:
+    name: Verify stack catalog
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Initialize orun workspace
+        uses: sourceplane/kiox-action@v2.1.2
+
+      - name: Make helper scripts executable
+        run: chmod +x scripts/*.sh
+
+      - name: Verify catalog
+        run: ./scripts/verify.sh
