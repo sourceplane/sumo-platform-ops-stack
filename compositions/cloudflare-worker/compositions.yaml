@@ -81,7 +81,7 @@ spec:
           shell: bash
           run: |
             test -f package.json
-            test -f wrangler.jsonc
+            test -f wrangler.jsonc || test -f wrangler.toml
           onFailure: stop
         - name: build-worker
           run: "{{.buildCommand}}"
