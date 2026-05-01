@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  packages: read
+
+jobs:
+  validate-package:
+    name: Validate package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Initialize orun workspace
+        uses: sourceplane/kiox-action@v2.1.2
+
+      - name: Derive package version
+        shell: bash
+        run: |
+          version="$(awk '/^  version: /{print $2}' stack.yaml)"
+          test -n "${version}"
+          echo "STACK_VERSION=${version}" >> "${GITHUB_ENV}"
+
+      - name: Build release archive
+        run: |
+          kiox -- orun publish ghcr.io/sourceplane/sumo-platform-ops-stack:${STACK_VERSION} \
+            --dry-run \
+            --root . \
+            --version "${STACK_VERSION}"
