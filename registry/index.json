@@ -2,8 +2,8 @@
   "stack": {
     "name": "stack-tectonic",
     "title": "Stack Tectonic",
-    "version": "0.11.0",
-    "oci": "oci://ghcr.io/sourceplane/stack-tectonic:0.11.0"
+    "version": "0.12.0",
+    "oci": "oci://ghcr.io/sourceplane/stack-tectonic:0.12.0"
   },
   "catalog": {
     "compositions": [
