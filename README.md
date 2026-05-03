@@ -75,6 +75,7 @@ Every composition now lives under `compositions/<name>/` so docs, examples, test
 - [Authoring guide](docs/authoring.md)
 - [Verification model](docs/verification.md)
 - [Production deploys](docs/production-deploys.md)
+- [Remote-state matrix CI](docs/remote-state-matrix-ci.md)
 - [Roadmap](docs/roadmap.md)
 - [Using this stack from OCI](docs/using-this-stack-from-oci.md)
 

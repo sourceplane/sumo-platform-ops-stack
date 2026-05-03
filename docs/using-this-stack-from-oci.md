@@ -110,6 +110,10 @@ The component stays repo-local. Only the execution contract for `cloudflare-page
 3. Run `orun validate` and `orun plan`.
 4. Promote the catalog upgrade through environments like any other platform change.
 
+## GitHub Actions matrix example
+
+For a copyable consumer workflow that compiles a single plan and runs it through a remote-state matrix in GitHub Actions, see [remote-state-matrix-ci.md](remote-state-matrix-ci.md).
+
 ## Why this repo now uses a catalog structure
 
 The old flat layout worked for a small prototype, but it would become noisy as the stack grows. The current layout separates:
