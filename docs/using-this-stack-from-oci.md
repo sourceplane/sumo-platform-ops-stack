@@ -47,7 +47,7 @@ compositions:
   sources:
     - name: stack-tectonic
       kind: oci
-      ref: oci://ghcr.io/sourceplane/stack-tectonic:0.11.0
+      ref: oci://ghcr.io/sourceplane/stack-tectonic:0.12.0
 
 discovery:
   roots:
@@ -63,10 +63,16 @@ environments:
 The important line is the OCI source:
 
 ```yaml
-ref: oci://ghcr.io/sourceplane/stack-tectonic:0.11.0
+ref: oci://ghcr.io/sourceplane/stack-tectonic:0.12.0
 ```
 
 Pin a released version instead of `latest` so plans stay reproducible.
+
+## Keep remote state opt-in
+
+Most consumer repositories should keep their default local `orun` workflow simple: validate, plan, and run without remote coordination unless they explicitly need matrix-safe distributed runners.
+
+When you do need backend-backed execution, keep it in a dedicated GitHub Actions workflow instead of baking remote state into every default repo run. The copyable advanced example is in [remote-state-matrix-ci.md](remote-state-matrix-ci.md).
 
 ## Local component ownership
 
@@ -112,7 +118,7 @@ The component stays repo-local. Only the execution contract for `cloudflare-page
 
 ## GitHub Actions matrix example
 
-For a copyable consumer workflow that compiles a single plan and runs it through a remote-state matrix in GitHub Actions, see [remote-state-matrix-ci.md](remote-state-matrix-ci.md).
+For an opt-in consumer workflow that compiles a single plan and runs it through a remote-state matrix in GitHub Actions, see [remote-state-matrix-ci.md](remote-state-matrix-ci.md).
 
 ## Why this repo now uses a catalog structure
 
