@@ -15,10 +15,10 @@ compositions:
   sources:
     - name: stack-tectonic
       kind: oci
-      ref: oci://ghcr.io/sourceplane/stack-tectonic:0.11.0
+      ref: oci://ghcr.io/sourceplane/stack-tectonic:0.12.0
 ```
 
-Keep the `orun` runtime pinned separately in `kiox.yaml`, then plan or run against that intent. The full consumer workflow is in [docs/using-this-stack-from-oci.md](docs/using-this-stack-from-oci.md).
+Keep the `orun` runtime pinned separately in `kiox.yaml`, then plan or run against that intent. The full consumer workflow is in [docs/using-this-stack-from-oci.md](docs/using-this-stack-from-oci.md), and the opt-in remote-state matrix pattern is documented in [docs/remote-state-matrix-ci.md](docs/remote-state-matrix-ci.md).
 
 ## Catalog layout
 
@@ -75,6 +75,7 @@ Every composition now lives under `compositions/<name>/` so docs, examples, test
 - [Authoring guide](docs/authoring.md)
 - [Verification model](docs/verification.md)
 - [Production deploys](docs/production-deploys.md)
+- [Remote-state matrix CI](docs/remote-state-matrix-ci.md)
 - [Roadmap](docs/roadmap.md)
 - [Using this stack from OCI](docs/using-this-stack-from-oci.md)
 
@@ -83,6 +84,6 @@ Every composition now lives under `compositions/<name>/` so docs, examples, test
 1. Update `stack.yaml`.
 2. Run `./scripts/verify.sh`.
 3. Merge to `main`.
-4. Push a matching tag like `v0.11.0`.
+4. Push a matching tag like `v0.12.0`.
 
 The release workflow publishes the OCI package, creates the GitHub release, and uploads the generated registry index.
