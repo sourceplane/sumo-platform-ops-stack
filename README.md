@@ -18,7 +18,7 @@ compositions:
       ref: oci://ghcr.io/sourceplane/stack-tectonic:0.12.0
 ```
 
-Keep the `orun` runtime pinned separately in `kiox.yaml`, then plan or run against that intent. The full consumer workflow is in [docs/using-this-stack-from-oci.md](docs/using-this-stack-from-oci.md), and the opt-in remote-state matrix pattern is documented in [docs/remote-state-matrix-ci.md](docs/remote-state-matrix-ci.md).
+Pin the catalog in `intent.yaml`, then run it with Orun. The full consumer setup is in [docs/using-this-stack-from-oci.md](docs/using-this-stack-from-oci.md), and the default GitHub Actions workflow template is documented in [docs/remote-state-matrix-ci.md](docs/remote-state-matrix-ci.md).
 
 ## Catalog layout
 

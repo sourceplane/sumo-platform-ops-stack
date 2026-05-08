@@ -28,7 +28,7 @@ Today the exported composition types are:
 
 There are two separate things to pin in a consumer repo:
 
-1. `kiox.yaml` pins the `orun` runtime image.
+1. Your CI workflow pins the Orun runtime version (for example `sourceplane/orun-action@v1.1.0`).
 2. `intent.yaml` pins the composition catalog release.
 
 That separation matters because upgrading the CLI and upgrading the stack contracts are different lifecycle decisions.
@@ -68,11 +68,9 @@ ref: oci://ghcr.io/sourceplane/stack-tectonic:0.12.0
 
 Pin a released version instead of `latest` so plans stay reproducible.
 
-## Keep remote state opt-in
+## Default GitHub Actions workflow
 
-Most consumer repositories should keep their default local `orun` workflow simple: validate, plan, and run without remote coordination unless they explicitly need matrix-safe distributed runners.
-
-When you do need backend-backed execution, keep it in a dedicated GitHub Actions workflow instead of baking remote state into every default repo run. The copyable advanced example is in [remote-state-matrix-ci.md](remote-state-matrix-ci.md).
+Use the copyable workflow in [remote-state-matrix-ci.md](remote-state-matrix-ci.md) as the default GitHub Actions template for consumer repositories using Orun with this stack.
 
 ## Local component ownership
 
@@ -116,9 +114,9 @@ The component stays repo-local. Only the execution contract for `cloudflare-page
 3. Run `orun validate` and `orun plan`.
 4. Promote the catalog upgrade through environments like any other platform change.
 
-## GitHub Actions matrix example
+## GitHub Actions workflow template
 
-For an opt-in consumer workflow that compiles a single plan and runs it through a remote-state matrix in GitHub Actions, see [remote-state-matrix-ci.md](remote-state-matrix-ci.md).
+For the default consumer workflow that compiles a single plan and runs it through a remote-state matrix in GitHub Actions, see [remote-state-matrix-ci.md](remote-state-matrix-ci.md).
 
 ## Why this repo now uses a catalog structure
 

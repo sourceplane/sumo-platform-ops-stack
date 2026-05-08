@@ -54,8 +54,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Initialize orun workspace
-        uses: sourceplane/kiox-action@v2.1.2
+      - name: Setup Orun
+        uses: sourceplane/orun-action@v1.1.0
 
       - name: Make helper scripts executable
         run: chmod +x scripts/*.sh

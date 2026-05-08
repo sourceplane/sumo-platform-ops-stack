@@ -23,7 +23,7 @@ Remove `--changed` from the production branch push step:
   env:
     CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  run: kiox -- orun run
+  run: orun run
 ```
 
 This ensures every deployable component runs its production job on every push to main. For repos with fewer than 10 components, this adds minimal overhead.
@@ -37,7 +37,7 @@ If the repo has many components and full runs are expensive, pass explicit base/
   env:
     CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-  run: kiox -- orun run --changed --base "${{ github.event.before }}" --head "${{ github.sha }}"
+  run: orun run --changed --base "${{ github.event.before }}" --head "${{ github.sha }}"
 ```
 
 Using `github.event.before` as the base ensures the diff covers the actual changes introduced by the merge.
@@ -55,14 +55,12 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: sourceplane/kiox-action@v2.1.2
-        with:
-          version: v0.4.3
+      - uses: sourceplane/orun-action@v1.1.0
       - name: Deploy all production components
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-        run: kiox -- orun run --env production
+        run: orun run --env production
 ```
 
 ## Composition behavior
